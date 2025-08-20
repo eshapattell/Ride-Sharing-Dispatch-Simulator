@@ -1,86 +1,121 @@
-# 🚖 Ride-Sharing-Dispatch-Simulator
+# 🚖 Ride-Sharing Dispatch Simulator
 
-Assign drivers to riders based on **distance first**, then **rating** — using a **queue** for incoming ride requests and a **priority queue (min-heap)** to pick the best driver for each request.
-
----
-
-## ✨ Features
-- **Queues**: `collections.deque` stores *incoming ride requests* FIFO.
-- **Priority queues**: `heapq` ranks available drivers by *(distance, -rating, time_added)* for each request.
-- **Nearest driver wins** (Euclidean distance). Ties go to higher driver rating, then FIFO order of driver availability.
-- **Ride history**: every completed (and failed) dispatch is recorded with rider, driver, distance, and fare.
-- **Tiny, pure-Python** (no external deps). Clear separation between core logic and a small demo app.
+[![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/) 
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()  
 
 ---
 
-## 🧠 Data Structures
-- **Request Queue**: FIFO of `RideRequest`.
-- **Per-request Driver Heap**: `(distance, -rating, available_seq, driver_id)` for all currently-available drivers.
-- **Dictionaries** for fast lookup of riders, drivers, rides.
+# 📌 Project Overview
+The **Ride-Sharing Dispatch Simulator** is a Python-based system that mimics how platforms like Uber or Lyft assign drivers to riders.  
+It focuses on **fair and efficient matching** by considering:  
+- 🚗 **Distance** → Nearest driver gets priority  
+- ⭐ **Driver rating** → Higher-rated drivers win ties  
+- ⏱ **Availability order** → First available driver is chosen if distance & rating are equal  
+
+This simulator uses fundamental data structures like **queues** and **priority queues** to model real-world ride-sharing behavior.  
+It’s lightweight, dependency-free, and serves as a great project for learning about **algorithms, data structures, and simulations** in Python.  
 
 ---
 
-## 🧮 Matching Logic (O(D log D) per request)
-1. Pop the next `RideRequest` from the queue.  
-2. Build a driver heap from all *available* drivers, keyed by computed distance to the pickup.  
-3. Pop the top candidate → assign ride; mark driver unavailable.  
-4. Log `Ride` and append to history.  
+# ✨ Features
+✔ Queue (`deque`) for incoming ride requests (FIFO)  
+✔ Priority queue (`heapq`) for nearest-driver selection  
+✔ Tie-breakers: higher rating → availability order  
+✔ Maintains full ride history (with fare & distance)  
+✔ Lightweight, dependency-free (pure Python)  
 
 ---
 
-## 📦 Project Layout
+# 🧠 Data Structures
+### **Ride Request Queue**
+> FIFO structure storing `RideRequest` objects  
+
+### **Driver Heap**
+> Ranked by:  
+> - Distance (ascending)  
+> - Rating (descending)  
+> - Availability order (ascending)  
+
+### **Dictionaries**
+> Fast lookup of **drivers**, **riders**, and **rides**  
+
+---
+
+# 🧮 Matching Logic
+1️⃣ **Take next ride request** from the queue  
+2️⃣ **Build driver heap** from all available drivers  
+3️⃣ **Select nearest driver** (apply tie-breakers)  
+4️⃣ **Assign ride → Mark driver unavailable → Log ride**  
+
+---
+
+# 📦 Project Layout
 
 
 ride\_sharing\_dispatch\_sim/
-├── app.py          # Small CLI/demo that enqueues requests and processes them
-├── simulator.py    # Core classes: Driver, Rider, RideRequest, Ride, DispatchSystem
-└── README.md       # This file
+1. app.py          # Demo application
+2. simulator.py    # Core classes and dispatch logic
+3.README.md       # Documentation
 
 `
 
 ---
 
-## 🚀 Quick Start
+# 🚀 Quick Start
+Run the demo locally:
+
 bash
 python3 app.py
 `
 
-You’ll see a short demo: drivers/riders added, requests enqueued, dispatches assigned nearest-first with rating tie-breaks, rides completed, and history printed.
+This will:
+👉 Register drivers & riders
+👉 Enqueue ride requests
+👉 Dispatch requests to drivers
+👉 Complete rides and print ride history
 
 ---
 
-## 🧪 Example Output (abridged)
+# 🧪 Example Output
 
 
 Enqueued Request: rider=R1 -> drop=(8, 2)
 Assigned: rider R1 -> driver D3 (dist=2.83, rating=4.9)
 Ride completed: id=1, fare=₹68.00
-...
-Ride History (most recent last):
-1) R1 with D3 distance=8.06 fare=₹68.00
+
+Ride History:
+Ride 1: Rider=R1, Driver=D3, Distance=8.06, Fare=₹68.00
 
 
 ---
 
-## 🧩 Extending the Simulator
+# 🧩 Extending the Simulator
 
-* Live driver location updates; periodic recompute or lazy update on assignment.
-* Surge pricing and estimated time of arrival (ETA).
-* Cancellations & timeouts (stale requests).
-* Geo-hash buckets or KD-trees for sub-linear nearest-driver lookup.
-* Persistent storage (SQLite/CSV) for history.
-* Concurrency (asyncio, threads) if you want realism.
-
----
-
-## ⚙️ Python Version
-
-Python **3.9+** (uses `dataclasses` and type hints).
+🔹 Real-time driver location updates
+🔹 Surge pricing and ETA calculation
+🔹 Ride cancellations & timeouts
+🔹 Smarter spatial indexing (Geo-hash, KD-Tree)
+🔹 Persistent history storage (e.g., SQLite)
+🔹 Async or concurrent request handling
 
 ---
 
-## 📄 License
+# ⚙️ Requirements
 
-MIT
+* **Python 3.9+**
+* Uses only standard library modules: `dataclasses`, `collections`, `heapq`, `time`, `math`
 
+---
+
+# 📄 License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+✔ Free to use, modify, and distribute with attribution.
+✔ No liability for issues arising from use.
+
+---
+
+# 📊 Status
+
+🟢 **Active** → This project is being maintained and improved.
 
