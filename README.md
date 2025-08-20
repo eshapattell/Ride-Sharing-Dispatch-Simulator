@@ -84,7 +84,3 @@ Python **3.9+** (uses `dataclasses` and type hints).
 MIT
 
 
-
-👉 This version keeps the emojis ✅ but makes all headings *second-level (##), so they’re **larger and bolder* compared to the earlier smaller ones.  
-
-Do you also want me to make the *section dividers (---) colorful with badges/icons* (like GitHub shields), or keep them plain and simple?
