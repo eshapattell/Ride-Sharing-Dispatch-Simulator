@@ -141,7 +141,7 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 ✔ Free to use, modify, and distribute with attribution.
 ✔ No liability for issues arising from use.
 
----
+--
 
 # 📊 Status
 
